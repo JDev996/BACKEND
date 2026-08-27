@@ -74,7 +74,7 @@ const controllerUsers = {
             respuesta.json({
                 result: 'fine',
                 message: 'User deleted successfully',
-                data: userDelete,
+                data: null,
             });
         }
     } catch (error) {
@@ -83,7 +83,30 @@ const controllerUsers = {
             message: 'An error occurred while deleting the user',
             data: error,
         });
+                }
+        },
+    
+    updateUser: async (requerimiento, respuesta)=>{
+        try{
+                const userUpdate = await modelUser.findByIdAndUpdate(
+                        requerimiento.params.id,
+                        requerimiento.body
+                );
+                if(userUpdate._id){
+                        respuesta.json({
+                                result: 'fine',
+                                message: 'user update',
+                                data: error,
+                        })
+                }
+        } catch(error){
+                respuesta.json({
+                result: 'mistake',
+                message: 'An error occurred while updating the user',
+                data: error,
+                });
+        }
     }
-}
+
 }
 export default controllerUsers;
